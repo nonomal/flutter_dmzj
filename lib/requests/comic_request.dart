@@ -29,9 +29,8 @@ class ComicRequest {
   /// 漫画-推荐
   Future<List<ComicRecommendModel>> recommend() async {
     var list = <ComicRecommendModel>[];
-    var result = await HttpClient.instance.getJson(
-      '/recommend_new.json',
-    );
+    var result = await HttpClient.instance
+        .getJson('/recommend_new.json', queryParameters: {"version": "99.9.9"});
     for (var item in result) {
       list.add(ComicRecommendModel.fromJson(item));
     }
@@ -256,8 +255,7 @@ class ComicRequest {
     required int comicId,
   }) async {
     var result = await HttpClient.instance.getEncryptV4(
-      '/comic/detail/$comicId',
-      needLogin: true,
+      '/comic/detail/$comicId?uid=2665531',
     );
     var data = ComicDetailResponseProto.fromBuffer(result);
     if (data.errno != 0) {
